@@ -13,11 +13,13 @@ class TrelloBoardDAO(object):
     _token = None
     _appkey = None
     _boardid = None
+    _labelid = None
 
-    def __init__(self, appkey, token, boardid):
+    def __init__(self, appkey, token, boardid, labelid):
         self._token = token
         self._appkey = appkey
         self._boardid = boardid
+        self._labelid = labelid
 
     def getLists(self, verbose=None):
         res = None
@@ -330,6 +332,17 @@ class TrelloBoardDAO(object):
             print json.dumps(r.json(), sort_keys=True, indent=4)
 
         newcard = r.json()
+
+        # SET COMPANY LABEL
+        url = ''.join(['https://api.trello.com/1/cards/',
+                       newcard['id'],
+                       '/idLabels?&key=',
+                       self._appkey,
+                       '&token=',
+                       self._token,
+                       '&value=',
+                       self._labelid])
+        r = requests.post(url)
 
         # rename card
         url = ''.join(['https://api.trello.com/1/cards/',

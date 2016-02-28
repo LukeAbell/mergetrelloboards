@@ -33,9 +33,9 @@ def cardexists(card, cardlist, prefix):
 
 def main():
 
-    slavedao = TrelloBoardDAO(conf[u'appkey'], conf[u'token'], conf[u'slaveboard'])
-    masterdao = TrelloBoardDAO(conf[u'appkey'], conf[u'token'], conf[u'masterboard'])
-    prefix = u'[kr]'
+    slavedao = TrelloBoardDAO(conf[u'appkey'], conf[u'token'], conf[u'slaveboard'], conf[u'labelid'])
+    masterdao = TrelloBoardDAO(conf[u'appkey'], conf[u'token'], conf[u'masterboard'], conf[u'labelid'])
+    prefix = conf[u'slavecardsprefix']
 
     # get master lists
     masterlists = masterdao.getLists()
@@ -119,13 +119,13 @@ def main():
 
         # reordrer cards
         print "* reorder cards:", sl['name'].encode('utf-8')
-        priority = ['green', 'yellow', 'orange', 'red']
+        #priority = ['green', 'yellow', 'orange', 'red']
         tu = TrelloUtils(slavedao)
-        if sl['name'] in conf['orderbyduedate']:
-            tu.reorderListByDueDate(sl['id'])
-            tu.redSoonDueDate(sl['id'])
-        else:
-            tu.reorderListByPriority(sl['id'], priority)
+        #if sl['name'] in conf['orderbyduedate']:
+        tu.reorderListByDueDate(sl['id'])
+        #tu.redSoonDueDate(sl['id'])
+        #else:
+        #    tu.reorderListByPriority(sl['id'], priority)
 
 
 if __name__ == "__main__":

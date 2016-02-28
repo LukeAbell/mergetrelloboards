@@ -37,3 +37,5 @@ nosetests.xml
 
 # My conf
 myconf.py
+
+conf.py
