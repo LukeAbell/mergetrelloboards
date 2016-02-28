@@ -112,7 +112,7 @@ def main():
         for sc in slavecards:
             if sc['name'].startswith(prefix):
                 print "* created from master:", sc['name'].encode('utf-8')
-                if sc['id'] not in syncslavecards:
+                if sc['id'] not in syncslavecards and conf[u'labelid'] in sc['idLabels']:
                     print "* no longer exists in master:", sc['name'].encode('utf-8'), sc['id'].encode('utf-8')
                     slavedao.deleteCard(sc['id'])
                     print "* ", sc['name'].encode('utf-8'), "has been deleted"
